@@ -1,23 +1,51 @@
 # ECEN 522R Final Project
 
-## Peripheral Ideas 
-- Mac Keyboard
-- Dell Keyboard
-- HP Keyboard
-- Razer Keyboard
-- Wireless keyboard
-- Mac Mouse
-- HP Mouse
-- Razer Mouse
 
+## HIDden Data Part 1 - Dell Keyboard
 
+The flash drive sat in an evidence bag, its crocodile sticker a mocking reminder of the audacious heist. The crew that hit Gold Standard National wasn’t just bold—they were precise. No fingerprints, no alarms, just the sound of vault doors swinging open and $25 million vanishing overnight.  
 
-# HIDden data Part 1
+But they made one mistake. They left *this*.  
 
-Our analysts found this file on a mysterious flash drive that also had a picture of a Crocodile on it. Can you decipher the data and find what was HIDden?
+A seemingly harmless flash drive, recovered near the getaway site, now sat under the glare of the forensics lab lights. Inside was a single, cryptic file. Our analysts were stumped—whatever’s on it is encoded, concealed, or worse. *"It’s a message,"* one said. *"Or a key."*
 
+Your mission is clear: **decipher the data and find what was HIDden. The crew left breadcrumbs—now it's your turn to follow them.**
 
-- Difficulty: Easy/ Medium
+Let’s take down the Crocodile Crew.
+
+- Difficulty: Easy/Medium
 - Flag: byuctf{usb_d4t4_1s_s0_c00l}
-- Challenge File: hidden-data-p1
+- Challenge File: hidden-data-p1.txt
 - Solve Script: converter.py 
+
+## HIDden Data Part 2 - Mac Keyboard
+
+The Crocodile Crew was meticulous, leaving almost nothing behind. But almost wasn’t enough. Hidden in the chaos of their abandoned safehouse, wedged between coffee-stained blueprints and a half-empty duffle bag, was a Mac computer.  
+
+What did they program into it? Keyloggers? Backdoors? A payload designed to take over the bank’s secure systems? One thing is clear: **this computer was more than a tool—it was a weapon.**
+
+- Difficulty: Medium
+- Flag: byuctf{D0nt_F0rg3t_B4cksp4c3s}
+- Challenge File: hidden-data-p2.pcapng
+- Solve Script: converter.py 
+
+
+## Mouse Hunt Part 1 - Dell Mouse
+
+The heist was flawless—almost too flawless. Security footage showed nothing but an empty vault and a short blip in the system logs. Whatever tool the Crocodile Crew used, it bypassed every safeguard, every trap. Buried under a pile of discarded equipment in a nearby alley was an input device. 
+
+Now it’s in your hands. Your mission: **reverse-engineer the Crocodile Crew’s tool**
+
+- Difficulty: Easy/Medium
+- Flag: byuctf{m1c3_ar3_c00l}
+- Challenge File: moust-hunt-p1.pcapng
+- Solve Script: mouseConverter.py 
+
+
+
+## HP Keyboard
+
+
+## Razer Keyboard
+
+## Razer Mouse

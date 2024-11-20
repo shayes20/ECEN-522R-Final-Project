@@ -45,7 +45,7 @@ def read_hid_reports_from_file(file_path):
         hid_reports = [line.strip() for line in file.readlines() if line.strip()]
     return hid_reports
 
-input_file_path = './captures/output-dell-ctf-1.txt' 
+input_file_path = './captures/mac-output.txt' 
 
 hid_reports = read_hid_reports_from_file(input_file_path)
 

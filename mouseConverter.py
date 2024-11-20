@@ -35,13 +35,14 @@ def simulate_mouse_movements_and_buttons(hid_data):
             mouse.press(Button.left)
         else:  # Left button released
             mouse.release(Button.left)
+        time.sleep(0.01)
 
 # HID data from the input
 with open("captures/dell-mouse-ctf-1-output.txt", "r") as file:
     hid_data = [line.strip() for line in file.readlines() if line.strip()]
 
 # Wait 2 seconds before recreating the mouse movements
-time.sleep(2)
+time.sleep(5)
 
 # Simulate the movements and button presses
 simulate_mouse_movements_and_buttons(hid_data)
