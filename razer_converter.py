@@ -19,7 +19,7 @@ def parse_hid_reports(hid_reports):
 
         bytes_array = [int(report[i:i+2], 16) for i in range(0, len(report), 2)]
 
-        shift_pressed = (bytes_array[0] & 0x02) > 0
+        shift_pressed = (bytes_array[1] & 0x02) > 0
         
         for key_code in bytes_array[2:]:
             if key_code == 0:
@@ -45,7 +45,7 @@ def read_hid_reports_from_file(file_path):
         hid_reports = [line.strip() for line in file.readlines() if line.strip()]
     return hid_reports
 
-input_file_path = './captures/output-dell-ctf-1.txt' 
+input_file_path = './captures/razer-output.txt' 
 
 hid_reports = read_hid_reports_from_file(input_file_path)
 
