@@ -45,7 +45,7 @@ def ReadHidReportsFromFile(filePath):
         hidReports = [line.strip() for line in file.readlines() if line.strip()]
     return hidReports
 
-inputFilePath = './captures/hidden-data-p1.txt' 
+inputFilePath = './captures/hidden-data-p2.txt' 
 
 hidReports = ReadHidReportsFromFile(inputFilePath)
 
