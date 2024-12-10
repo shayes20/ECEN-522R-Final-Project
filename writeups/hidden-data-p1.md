@@ -117,16 +117,80 @@ save output of the command to a file, in this case `hidden-data-p1.txt`.
 Running the TShark command from Figure 3 generates the text file shown in Figure 4. This information is the HID data
 from every packet with source `1.8.1`. With this text file, we can now automate the conversion process.
 
+Warning: Make sure the file is saved in "UTF-8" encoding, and not "UTF-16". Sometimes TShark will save the encoding
+as UTF-16, which causes issues with the Python script in the next section.
+
+
 # Automate
- It would take too long
-and be erreroneous to do this process by hand. We created 
+It would take too long and be erroneous convert the HID data by hand. To simplify, we recommend using Python to convert
+the data.
 
+```Python
+hidKeyToAscii = {
+    0x04: 'a', 0x05: 'b', 0x06: 'c', 0x07: 'd', 0x08: 'e', 0x09: 'f', 0x0A: 'g', 0x0B: 'h', 0x0C: 'i', 0x0D: 'j', 0x0E: 'k', 0x0F: 'l',
+    0x10: 'm', 0x11: 'n', 0x12: 'o', 0x13: 'p', 0x14: 'q', 0x15: 'r', 0x16: 's', 0x17: 't', 0x18: 'u', 0x19: 'v', 0x1A: 'w', 0x1B: 'x',
+    0x1C: 'y', 0x1D: 'z', 0x27: '0', 0x1E: '1', 0x1F: '2', 0x20: '3', 0x21: '4', 0x22: '5', 0x23: '6', 0x24: '7', 0x25: '8', 0x26: '9',
+    0x2C: ' ', 0x2A: 'backspace', 0x28: 'enter', 0x2B: '\t', 0x2D: '_', 0x2F: '[', 0x30: ']', 0x33: ';', 0x34: "'", 0x36: ',', 0x37: '.', 0x38: '/',
+    0x39: '[caps_lock]', 0x4F: '[right_arrow]', 0x50: '[left_arrow]', 0x51: '[down_arrow]', 0x52: '[up_arrow]'
+}
 
-## Fix encoding
-Convert from UTF-16 to UTF-8
+hidShiftMap = {
+    'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E', 'f': 'F', 'g': 'G', 'h': 'H', 'i': 'I', 'j': 'J', 'k': 'K', 'l': 'L',
+    'm': 'M', 'n': 'N', 'o': 'O', 'p': 'P', 'q': 'Q', 'r': 'R', 's': 'S', 't': 'T', 'u': 'U', 'v': 'V', 'w': 'W', 'x': 'X',
+    'y': 'Y', 'z': 'Z', '1': '!', '2': '@', '3': '#', '4': '$', '5': '%', '6': '^', '7': '&', '8': '*', '9': '(', '0': ')',
+    '[': '{', ']': '}', ';': ':', "'": '"', ',': '<', '.': '>', '/': '?'
+}
 
-## Run Python script
-### Program Output
+def ParseHidReports(hidReports):
+    result = []
+    for report in hidReports:
+
+        bytesArray = [int(report[i:i+2], 16) for i in range(0, len(report), 2)]
+
+        shiftPressed = (bytesArray[0] & 0x02) > 0
+        
+        for keyCode in bytesArray[2:]:
+            if keyCode == 0:
+                continue 
+            
+            if keyCode in hidKeyToAscii:
+                char = hidKeyToAscii[keyCode]
+                
+                if shiftPressed and char in hidShiftMap:
+                    char = hidShiftMap[char]
+                    
+                if char == 'backspace' and result:
+                    result.pop()
+                elif char == 'enter' and result:
+                    result.append("\n")
+                else:
+                    result.append(char)
+
+    return ''.join(result)
+
+def ReadHidReportsFromFile(filePath):
+    with open(filePath, 'r') as file:
+        hidReports = [line.strip() for line in file.readlines() if line.strip()]
+    return hidReports
+
+inputFilePath = './hidden-data-p1.txt' 
+
+hidReports = ReadHidReportsFromFile(inputFilePath)
+
+asciiOutput = ParseHidReports(hidReports)
+print("Decoded ASCII output:", asciiOutput)
+```
+*Figure 5: Python script for decoding keyboard HID data.*
+
+Figure 5 contains the Python script that can be used to convert the HID data to characters. The conversion
+table has also been transcribed into the script. The Python script reads in the HID data from the file specified
+in `inputFilePath`. The script gets each HID value, and converts it to its corresponding character in `hidKeyToAscii`.
+If shift was held for a character, then the character is converted to the shift value using `hidShiftMap`.
+
 ```
 Decoded ASCII output: byuctf{usb_d4t4_1s_s0_c00l}
 ```
+*Figure 6: Result of running Python script.*
+
+Running the Python script provides the result seen in Figure 6. Congradulations, you have solved the challenge!
+The flag/answer to this challenge is `byuctf{usb_d4t4_1s_s0_c00l}`.
