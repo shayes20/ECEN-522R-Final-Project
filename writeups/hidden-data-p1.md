@@ -1,6 +1,14 @@
-# Writeup for hidden-data-p1
+# Writeup for Hidden Data Part 1
 
-# Open in Wireshark
+## Introduction
+HID (Human Interface Device) use generic USB drivers to enable communication between peripheral devices and a computer.
+The HID data format is an industry standard for this communication. Common HID devices include keyboard, mice,
+game controllers. While the length and formatting of HID data is standardized, the usage varies by device.
+This CTF challenge involves HID data sent from a keyboard to a computer. Your objective is to find the hidden "flag"
+within the HID data.
+
+
+## Open in Wireshark
 First, it is important to figure out what you are working with. Open the file `hidden-data-p1.pcapng` in Wireshark.
 Wireshark is a helpful tool that can be used to analyze USB and Network traffic. We know to use Wireshark because the filetype
 is ".pcapng", which is a file supported by Wireshark.
@@ -26,7 +34,7 @@ byte `00` correspond to the special keys: LeftControl, LeftShift, LeftAlt, LeftG
 If either of the shift keys are held down, then the character from the array is considered capital. If not, the letter is considered
 lowercase. In this example, neither shift is held down, so we know the character is lowercase "b".
 
-# TShark
+## TShark
 Now that we can manually identify the HID data from the ".pcapng" file, its time to automate the process. But before we can automate,
 we need to extract this HID data to a text file, for easy readability and automation. "TShark" is a utility that comes built into Wireshark,
 and can be used with Wireshark filters to extract data from a capture file. Figure 2 shows that all data being sent as "USB_INTERRUPT in"
@@ -121,7 +129,7 @@ Warning: Make sure the file is saved in "UTF-8" encoding, and not "UTF-16". Some
 as UTF-16, which causes issues with the Python script in the next section.
 
 
-# Automate
+## Automate
 It would take too long and be erroneous convert the HID data by hand. To simplify, we recommend using Python to convert
 the data.
 
@@ -192,5 +200,5 @@ Decoded ASCII output: byuctf{usb_d4t4_1s_s0_c00l}
 ```
 *Figure 6: Result of running Python script.*
 
-Running the Python script provides the result seen in Figure 6. Congradulations, you have solved the challenge!
+Running the Python script provides the result seen in Figure 6. Congratulations, you have solved the challenge!
 The flag/answer to this challenge is `byuctf{usb_d4t4_1s_s0_c00l}`.
