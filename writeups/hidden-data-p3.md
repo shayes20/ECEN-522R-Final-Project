@@ -166,7 +166,7 @@ Figure 5 contains the Python script that can be used to convert the HID data to 
 ```
 Decoded ASCII output: byuctf{wh4t_4_w31rd_usb}
 ```
-*Figure 8: Result of running Python script.*
+*Figure 6: Result of running Python script.*
 
 Running the Python script provides the result seen in Figure 5. Congratulations, you have solved the challenge!
 The flag/answer to this challenge is `byuctf{wh4t_4_w31rd_usb}`.
