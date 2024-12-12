@@ -162,7 +162,7 @@ SimulateMouseMovements(hidData)
 
 Figure 5 contains the Python code for recreating the mouse movement information. The HID data is read in, converted into mouse clicks, x movement, and y movement. Once the information is converted, the mouse on the computer running this script simulates the movement and clicks from the HID data.
 
-![Figure 6](./files/mouse_p1_flag.png)
+![Figure 6](./files/mouse_p1_flag.png)  
 *Figure 6: Result of running Python script.*
 
 To recreate the mouse movement, open MS paint or similar drawing utility. Then select the pen or a drawing utility. Next, run the Python script, and hover the mouse over the top left of the drawing area. After a 2 second delay, the Python script will start simulating the mouse actions and movements from the HID data. The result of running this script in MS paint is shown in Figure 6.
