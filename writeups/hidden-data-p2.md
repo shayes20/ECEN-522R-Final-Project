@@ -54,18 +54,19 @@ Figure 4 shows the details of packet 67. The small red box shows that the HID ch
 Now that we can manually identify the HID data from the ".pcapng" file, its time to automate the process. But before we can automate,
 we need to extract this HID data to a text file, for easy readability and automation. "TShark" is a utility that comes built into Wireshark,
 and can be used with Wireshark filters to extract data from a capture file. Figure 2 shows that all data being sent as "USB_INTERRUPT in"
-is coming from the source `1.25.1`, and thus we can prepare a filter on that source address. Next, the data we are interested in is the
-USB HID data, thus we can extract only the `usbhid.data` fields.
+is coming from the source `1.25.1`, and thus we can prepare a filter on that source address.
 
 ```PowerShell
 .\tshark.exe -r hidden-data-p2.pcapng -Y "usb.src == 1.25.1" -T "fields" -e usbhid.data > hidden-data-p2.txt
 ```
 *Figure 5: TShark command used to extract HID data to text file.*
 
-Running the command in Figure 5 will extract the HID data and save it to a text file. The `-r` flag specifies the file, in this case
-`hidden-data-p2.pcapng`. The `-Y` flag specifies filters, in this case its packets with source `1.25.1`. The `-T` flag specifies the type of data to extract,
-in this case we are extracting from `fields`. The `-e` flag specifies what fields to extract from, in this case `usbhid.data`. Finally, `>` means to
-save output of the command to a file, in this case `hidden-data-p2.txt`.
+Running the command in Figure 5 will extract the HID data and save it to a text file.
+* The `-r` flag specifies the file, in this case `hidden-data-p2.pcapng`.
+* The `-Y` flag specifies filters, in this case its packets with source `1.25.1`.
+* The `-T` flag specifies the type of data to extract, in this case we are extracting from `fields`.
+* The `-e` flag specifies what fields to extract from, in this case `usbhid.data`.
+* Finally, `>` means to save output of the command to a file, in this case `hidden-data-p2.txt`.
 
 ```
 0000050000000000
